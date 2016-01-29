@@ -26,30 +26,21 @@ app
                     console.error(error);
                 });
             }
+            $scope.cervejaria = {};
         }
-   
-   // Define função para adicionar cervejaria
-   $scope.adicionaCervejaria = function(cervejaria) {
-       // Se a cervejaria não possuir id
-       if (!cervejaria.hasOwnProperty('id')) {
-           // Verifica a quantidade e incrementa para o próximo id
-           cervejaria.id = $scope.cervejarias.length + 1;
-           // Adiciona cervejaria na lista
-           $scope.cervejarias.push(cervejaria);
-       }
-       // Limpa o objeto cervejaria
-       $scope.cervejaria = {};
-   }
-   // Define função para remover cervejarias
-   $scope.removeCervejaria = function(cervejaria) {
-       // Procura cervejaria na lista
-       var index = $scope.cervejarias.indexOf(cervejaria);
-       // Se o index for maior que -1, a cervejaria existe na lista
-       if (index > -1) {
-           // Remove uma linha da lista, a partir do index
-           $scope.cervejarias.splice(index,1);
-       }
-   }
+        $scope.alterarCervejaria = function(cervejaria) {
+            $scope.cervejaria = angular.copy(cervejaria);
+        }
+        
+        $scope.removerCervejaria = function(cervejaria) {
+            if (confirm('Tem certeza que deseja remover a cervejaria ' + cervejaria.nome + '?')) {
+                CervejariasService.remover(cervejaria._id).then(function(response) {
+                    $scope.buscaTodos();
+                }, function(error) {
+                    console.error(error);
+                });
+            }
+        }
    
     // Definindo a lista de cervejas default
     $scope.cervejas = [

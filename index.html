@@ -75,9 +75,9 @@
                                 </div>
                             </section>
                             <section class="list-group">
-                                <a href="#" class="list-group-item" ng-repeat="cervejaria in filtradas = ( cervejarias | filter:buscaCervejarias )">
-                                    {{ cervejaria.nome }}
-                                    <button type="button" class="btn btn-default btn-xs pull-right" ng-click="removeCervejaria(cervejaria)">
+                                <a href="javascript:void(0)" class="list-group-item" ng-repeat="cervejaria in filtradas = ( cervejarias | filter:buscaCervejarias )">
+                                    <span ng-click="alterarCervejaria(cervejaria)">{{ cervejaria.nome }}</span>
+                                    <button type="button" class="btn btn-default btn-xs pull-right" ng-click="removerCervejaria(cervejaria)">
                                         <i class="glyphicon glyphicon-remove"></i>
                                     </button>
                                 </a>
