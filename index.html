@@ -175,7 +175,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Cerveja</h4>
             </div>
-            <form name="cerveja" ng-submit="adicionaCerveja(cerveja)" novalidate>
+            <form name="cerveja" ng-submit="salvarCerveja(cerveja)" novalidate>
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group col-md-6">
@@ -190,7 +190,7 @@
                     <div class="row">
                         <div class="form-group col-md-12">
                             <label for="cervejaria">Cervejaria</label>
-                            <select class="form-control" id="cervejaria" ng-model="cerveja.cervejaria" name="cervejaria" ng-options="cervejaria as cervejaria.nome for cervejaria in cervejarias track by cervejaria.id" required></select>
+                            <select class="form-control" id="cervejaria" ng-model="cerveja.cervejaria" name="cervejaria" ng-options="cervejaria as cervejaria.nome for cervejaria in cervejarias track by cervejaria._id" required></select>
                         </div>
                     </div>
                 </div>
@@ -208,6 +208,7 @@
         <script src="app.config.js"></script>
         <script src="api.constant.js"></script>
         <script src="cervejaria.service.js"></script>
+        <script src="cerveja.service.js"></script>
         <script src="loja-de-cerveja.controller.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     </body>

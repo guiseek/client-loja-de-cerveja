@@ -1,5 +1,5 @@
 app
-    .controller('LojaDeCervejaController', ['CervejariasService','$scope',function(CervejariasService,$scope) {
+    .controller('LojaDeCervejaController', ['CervejariasService','CervejasService','$scope',function(CervejariasService,CervejasService,$scope) {
         
         // Busca todas as cervejarias na API REST e popula o $scope
         $scope.buscaTodos = function() {
@@ -41,37 +41,38 @@ app
                 });
             }
         }
-   
-    // Definindo a lista de cervejas default
-    $scope.cervejas = [
-         {
-            id: 1,
-            nome: 'Gralha azul',
-            categoria: 'Stout',
-            cervejaria: {
-                id: 1,
-                nome: 'Araucária'
-            }
-        },
-        {
-            id: 2,
-            nome: 'Gebumga',
-            categoria: 'Pale Ale',
-            cervejaria: {
-                id: 2,
-                nome: 'Gebenha'
-            }
-        },
-        {
-            id: 3,
-            nome: 'Catedral',
-            categoria: 'Indian Pale Ale',
-            cervejaria: {
-                id: 3,
-                nome: 'Catedral'
-            }
+
+        // Busca todas as cervejas na API REST e popula o $scope
+        $scope.buscaTodasCervejas = function() {
+            CervejasService.buscaTodos().then(function(response) {
+                $scope.cervejas = response.data;
+            }, function(error) {
+                console.error(error);
+            });
         }
-   ];
+        $scope.buscaTodasCervejas();
+   
+        // Salva cervejaria
+        $scope.salvarCerveja = function(cerveja) {
+            if (cerveja.hasOwnProperty('_id')) {
+                CervejasService.alterar(cerveja._id, cerveja).then(function(response) {
+                    $scope.buscaTodasCervejas();
+                }, function(error) {
+                    console.error(error);
+                });
+            } else {
+                CervejasService.salvar(cerveja).then(function(response) {
+                    $scope.buscaTodasCervejas();
+                }, function(error) {
+                    console.error(error);
+                });
+            }
+            $scope.cerveja = {};
+        }
+        $scope.alterarCerveja = function(cerveja) {
+            $scope.cerveja = angular.copy(cerveja);
+        }
+
    
    // Define função para adicionar cerveja
    $scope.adicionaCerveja = function(cerveja) {
