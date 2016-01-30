@@ -98,6 +98,9 @@ app
         // Função que limpa o carrinho
         $scope.limpaCarrinho = function() {
             $scope.carrinho = [];
+            angular.forEach($scope.cervejas, function(cerveja, index) {
+                cerveja.carrinho = 0;
+            });
         }
         // Carrinho de compras
         // $scope.carrinho = CarrinhoService.pega();
