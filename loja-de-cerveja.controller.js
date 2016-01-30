@@ -1,5 +1,5 @@
 app
-    .controller('LojaDeCervejaController', ['CervejariasService','CervejasService','$scope',function(CervejariasService,CervejasService,$scope) {
+    .controller('LojaDeCervejaController', ['CervejariasService','CervejasService','CarrinhoService','$scope',function(CervejariasService,CervejasService,CarrinhoService,$scope) {
         
         // Busca todas as cervejarias na API REST e popula o $scope
         $scope.buscaTodos = function() {
@@ -73,43 +73,45 @@ app
             $scope.cerveja = angular.copy(cerveja);
         }
 
+        $scope.removerCerveja = function(cerveja) {
+            if (confirm('Tem certeza que deseja remover a cerveja ' + cerveja.nome + '?')) {
+                CervejasService.remover(cerveja._id).then(function(response) {
+                    $scope.buscaTodasCervejas();
+                }, function(error) {
+                    console.error(error);
+                });
+            }
+        }
    
-   // Define função para adicionar cerveja
-   $scope.adicionaCerveja = function(cerveja) {
-       // Se a cerveja não possuir id
-       if (!cerveja.hasOwnProperty('id')) {
-           // Verifica a quantidade e incrementa para o próximo id
-           cerveja.id = $scope.cervejas.length + 1;
-           // Adiciona cerveja na lista
-           $scope.cervejas.push(cerveja);
-       }
-       // Limpa o objeto cerveja
-       $scope.cerveja = {};
-   }
-   // Define função para remover cerveja
-   $scope.removeCerveja = function(cerveja) {
-       // Procura cerveja na lista
-       var index = $scope.cervejas.indexOf(cerveja);
-       // Se o index for maior que -1, a cerveja existe na lista
-       if (index > -1) {
-           // Remove uma linha da lista, a partir do index
-           $scope.cervejas.splice(index,1);
-       }
-   }
-   
-   // Carrinho de compras
-   $scope.carrinho = [];
-   // Define função para adicionar cerveja ao carrinho
-   $scope.adicionaCarrinho = function(cerveja) {
-       // Adiciona cerveja ao carrinho
-       $scope.carrinho.push(angular.copy(cerveja));
-       // Se a cerveja já possui quantidade no carrinho ok, se no coloca como 0
-       cerveja.carrinho = cerveja.carrinho || 0
-       // Incrementa o carrinho para cada cerveja adicionada
-       cerveja.carrinho++;
-   }
-   // Função que limpa o carrinho
-   $scope.limpaCarrinho = function() {
-       $scope.carrinho = [];
-   }
+
+        // Carrinho de compras
+        $scope.carrinho = [];
+        // Define função para adicionar cerveja ao carrinho
+        $scope.adicionarCarrinho = function(cerveja) {
+            // Adiciona cerveja ao carrinho
+            $scope.carrinho.push(angular.copy(cerveja));
+            // Se a cerveja já possui quantidade no carrinho ok, se no coloca como 0
+            cerveja.carrinho = cerveja.carrinho || 0
+            // Incrementa o carrinho para cada cerveja adicionada
+            cerveja.carrinho++;
+        }
+        // Função que limpa o carrinho
+        $scope.limpaCarrinho = function() {
+            $scope.carrinho = [];
+        }
+        // Carrinho de compras
+        // $scope.carrinho = CarrinhoService.pega();
+        
+        // $scope.adicionarCarrinho = function(cerveja){
+        //     cerveja.carrinho = cerveja.carrinho | 0;
+        //     cerveja.carrinho++;    
+        //     CarrinhoService.adicionar(cerveja);
+        //     $scope.carrinho = CarrinhoService.pega();
+        // }
+        
+        // // Função que limpa o carrinho
+        // $scope.limpaCarrinho = function() {
+        //     CarrinhoService.limpa();
+        //     $scope.carrinho = CarrinhoService.pega();
+        // }
 }]);

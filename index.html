@@ -147,15 +147,15 @@
                                         <td>{{ cerveja.categoria }}</td>
                                         <td>{{ cerveja.cervejaria.nome }}</td>
                                         <td>
-                                            <button class="btn btn-default btn-xs" ng-click="adicionaCarrinho(cerveja)">
+                                            <button class="btn btn-default btn-xs" ng-click="adicionarCarrinho(cerveja)">
                                                 <i class="glyphicon glyphicon-shopping-cart"></i> {{ cerveja.carrinho || 0 }}
                                             </button>
                                         </td>
                                         <td>
-                                            <button class="btn btn-default btn-xs">
+                                            <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#cerveja" ng-click="alterarCerveja(cerveja)">
                                                 <i class="glyphicon glyphicon-pencil"></i>
                                             </button>
-                                            <button class="btn btn-default btn-xs" ng-click="removeCerveja(cerveja)">
+                                            <button class="btn btn-default btn-xs" ng-click="removerCerveja(cerveja)">
                                                 <i class="glyphicon glyphicon-remove"></i>
                                             </button>
                                         </td>
@@ -209,6 +209,7 @@
         <script src="api.constant.js"></script>
         <script src="cervejaria.service.js"></script>
         <script src="cerveja.service.js"></script>
+        <script src="carrinho.service.js"></script>
         <script src="loja-de-cerveja.controller.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     </body>
