@@ -15,4 +15,7 @@ app
         this.remover = function(id) {
             return $http.delete(API.url + 'cervejarias/' + id);
         }
+        this.procura = function(palavra) {
+            return $http.get(API.url + 'cervejarias/procura/' + palavra);
+        }
     }]);

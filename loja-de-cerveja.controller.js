@@ -10,6 +10,15 @@ app
             });
         }
         $scope.buscaTodos();
+
+        $scope.procuraCervejaria = function(palavra) {
+            CervejariasService.procura(palavra).then(function(response) {
+                $scope.cervejarias = response.data;
+            }, function(error) {
+                console.error(error);
+            });
+        }
+   
         
         // Salva cervejaria
         $scope.salvarCervejaria = function(cervejaria) {
@@ -51,7 +60,7 @@ app
             });
         }
         $scope.buscaTodasCervejas();
-   
+        
         // Salva cervejaria
         $scope.salvarCerveja = function(cerveja) {
             if (cerveja.hasOwnProperty('_id')) {

@@ -14,6 +14,9 @@
             table tr th:last-child {
                 width: 70px;
             }
+            .navbar-brand {
+                padding: 5px 15px;
+            }
         </style>
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -34,7 +37,9 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">Loja de Cerveja</a>
+                        <a class="navbar-brand" href="#">
+                            <img src="images/loja-de-cerveja-logo.png" alt="">
+                        </a>
                         </div>
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -60,12 +65,13 @@
                 </nav>
             </header>
             <div class="row">
-                <aside class="col-sm-3">
+                <aside class="col-sm-4">
                     <section class="panel panel-default">
                         <header class="panel-heading">
                             Cervejarias
                         </header>
                         <div class="panel-body">
+                            <h5>Busca com filter</h5>
                             <section class="navbar">
                                 <div class="input-group">
                                     <span class="input-group-addon" id="basic-addon1">
@@ -73,6 +79,19 @@
                                     </span>
                                     <input type="text" class="form-control" ng-model="buscaCervejarias" placeholder="Buscar cervejarias..." aria-describedby="basic-addon1">
                                 </div>
+                            </section>
+                            <h5>Busca com service</h5>
+                            <section class="navbar">
+                                <form name="buscaCervejariaForm" ng-submit="procuraCervejaria(palavra)" novalidate>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="palavra" placeholder="Buscar cervejarias..." aria-describedby="basic-addon1" min-length="3" required>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-success" type="submit" ng-disabled="buscaCervejariaForm.$invalid">
+                                                <i class="glyphicon glyphicon-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
                             </section>
                             <section class="list-group">
                                 <a href="javascript:void(0)" class="list-group-item" ng-repeat="cervejaria in filtradas = ( cervejarias | filter:buscaCervejarias )">
@@ -101,7 +120,7 @@
                         </footer>
                     </section>
                 </aside>
-                <main class="col-sm-9">
+                <main class="col-sm-8">
                     <nav class="navbar">
                         <div class="row">
                             <div class="col-sm-6">
